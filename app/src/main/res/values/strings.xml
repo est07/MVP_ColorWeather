@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">MVP_Color_Weather</string>
+    <string name="hourly_forecast">Hourly Forecast</string>
+    <string name="daily_forecast">Daily Forecast</string>
+    <string name="daily_button_text">Daily</string>
+    <string name="hourly_button_text">Hourly</string>
+    <string name="minutely_button_text">Minutely</string>
+    <string name="minutely_weather_title">Minutely Forecast</string>
+    <string name="no_data_to_display">No data to display</string>
+
+    <!-- Strings related to login -->
+    <string name="error_field_required">Este campo es requerido</string>
+
+    <string name="error_server">Error en el servidor</string>
+
+    <string name="error_network">Conexión de red no disponible</string>
+    <string name="error_connection_webservice">Error de conexiòn con la base de datos.</string>
+    <string name="error_data_null">"Ha ocurrido un error. Contacte al administrador"</string>
+    <string name="error_webservice_body">"Error en la respuesta del servidor"</string>
+
+</resources>
