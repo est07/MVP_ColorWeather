@@ -1,8 +1,5 @@
 package com.bench.eagle.mvp_colorweather.service.api;
 
-/**
- * Created by andresdavid on 15/01/17.
- */
 
 public class CostantsApi {
 
@@ -11,7 +8,7 @@ public class CostantsApi {
     public static final String LATITUDE = "37.8267";
     public static final String LONGITUDE = ",-122.4233";
     public static final String UNITS_SI = "si";
-    public static final String DATAUBICACION= LATITUDE+LONGITUDE+UNITS_SI;
+    public static final String DATAUBICACION= LATITUDE+LONGITUDE;
 
     public static final String VERSION = "/v1";
     public static final String API_TYPE = "/public";
@@ -24,4 +21,5 @@ public class CostantsApi {
     public static final String TS_VALUE= "1";
 
     public static final String querry =VERSION+API_TYPE+SECTION;
+
 }

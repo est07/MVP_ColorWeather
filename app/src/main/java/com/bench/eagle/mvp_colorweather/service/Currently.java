@@ -5,15 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Currently {
 
-    @SerializedName("summary")
     private String summary;
-    @SerializedName("icon")
     private String icon;
-    @SerializedName("temperature")
     private Double temperature;
-    @SerializedName("humidity")
     private Double humidity;
-    @SerializedName("precipProbability")
     private Double precipProbability;
 
     public String getSummary() {

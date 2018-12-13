@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.bench.eagle.mvp_colorweather.R;
 import com.bench.eagle.mvp_colorweather.WeatherData;
 import com.bench.eagle.mvp_colorweather.adapters.DailyWeatherAdapter;
+import com.bench.eagle.mvp_colorweather.mvp.model.DailyModel;
 import com.bench.eagle.mvp_colorweather.mvp.model.MainModel;
 import com.bench.eagle.mvp_colorweather.mvp.presenter.DailyPresenter;
 import com.bench.eagle.mvp_colorweather.mvp.presenter.MainPresenter;
@@ -22,9 +23,10 @@ import butterknife.ButterKnife;
 
 public class DailyWeatherActivity extends AppCompatActivity {
 
-    public static final String EXTRA_DAY_LIST = "EXTA_DAYS_ARRAY_LIST";
-
     DailyPresenter presenter;
+
+    private String timeZone;
+    private ArrayList<DataWeatherResponse> days;
 
     public static Intent newInstanceExtra(Activity activity, String timezone, ArrayList<DataWeatherResponse> daily) {
 
@@ -32,7 +34,6 @@ public class DailyWeatherActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString(WeatherData.TIMEZONE, timezone);
         bundle.putParcelableArrayList(WeatherData.DAYS_ARRAY_LIST, daily);
-        //dailyActivityIntent.putParcelableArrayListExtra(WeatherData.DAYS_ARRAY_LIST, daily);
         dailyActivityIntent.putExtras(bundle);
 
         return dailyActivityIntent;
@@ -54,13 +55,11 @@ public class DailyWeatherActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         if(bundle !=null) {
-            String timeZone = bundle.getString(WeatherData.TIMEZONE);
-            ArrayList<DataWeatherResponse> days = bundle.getParcelableArrayList(WeatherData.DAYS_ARRAY_LIST);
+            timeZone = bundle.getString(WeatherData.TIMEZONE);
+            days = bundle.getParcelableArrayList(WeatherData.DAYS_ARRAY_LIST);
         }
 
-        presenter = new DailyPresenter(new DailyView(this));
-
-
+        presenter = new DailyPresenter(new DailyModel(days,timeZone),new DailyView(this));
 
     }
 

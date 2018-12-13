@@ -4,14 +4,14 @@ package com.bench.eagle.mvp_colorweather.service;
 
 public class ServiceUtils {
 
-    private static ListaWeatherService listaWeatherService;
+    private static ListWeatherService listWeatherService;
 
     private ServiceUtils(){}
 
-    public static final ListaWeatherService getItemService() {
-        if (listaWeatherService == null) {
-            listaWeatherService = new ListaWeatherService();
+    public static final ListWeatherService getItemService() {
+        if (listWeatherService == null) {
+            listWeatherService = new ListWeatherService();
         }
-        return listaWeatherService;
+        return listWeatherService;
     }
 }

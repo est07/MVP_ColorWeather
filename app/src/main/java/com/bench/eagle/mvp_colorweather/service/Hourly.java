@@ -1,23 +1,24 @@
 
 package com.bench.eagle.mvp_colorweather.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 public class Hourly {
 
     @SerializedName("data")
-    private List<DataWeatherResponse> data;
+    private ArrayList<DataWeatherResponse> data;
     @SerializedName("icon")
     private String icon;
     @SerializedName("summary")
     private String summary;
 
-    public List<DataWeatherResponse> getData() {
+    public ArrayList<DataWeatherResponse> getData() {
         return data;
     }
 
-    public void setData(List<DataWeatherResponse> data) {
+    public void setData(ArrayList<DataWeatherResponse> data) {
         this.data = data;
     }
 

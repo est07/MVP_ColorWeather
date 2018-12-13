@@ -2,29 +2,24 @@ package com.bench.eagle.mvp_colorweather.mvp.model;
 
 import android.support.annotation.NonNull;
 
-import com.bench.eagle.mvp_colorweather.models.CurrentWeather;
-import com.bench.eagle.mvp_colorweather.models.Day;
-import com.bench.eagle.mvp_colorweather.models.Hour;
-import com.bench.eagle.mvp_colorweather.models.Minute;
 import com.bench.eagle.mvp_colorweather.service.GetWeatherResponse;
-import com.bench.eagle.mvp_colorweather.service.ListaWeatherService;
+import com.bench.eagle.mvp_colorweather.service.ListWeatherService;
 
-import java.util.ArrayList;
-
-import io.reactivex.Observer;
 import io.reactivex.observers.DisposableObserver;
 
 
 public class MainModel {
 
-    private ListaWeatherService listaWeatherService;
+    private ListWeatherService listWeatherService;
+    private String dataLoction;
 
-    public MainModel(ListaWeatherService listaWeatherService) {
-        this.listaWeatherService = listaWeatherService;
+    public MainModel(ListWeatherService listWeatherService, String dataLoction) {
+        this.listWeatherService = listWeatherService;
+        this.dataLoction = dataLoction;
     }
 
     public void getWeathers(@NonNull DisposableObserver<GetWeatherResponse> observer) {
-          listaWeatherService.getListWeather(observer);
+          listWeatherService.getListWeather(observer, dataLoction);
     }
 
 }

@@ -17,7 +17,7 @@ public class MainPresenter {
     private MainModel mainModel;
     private MainView mainView;
 
-    private ArrayList<DataWeatherResponse> daily;
+    private ArrayList<DataWeatherResponse> daily, hourly, minutely;
     private String timeZone;
 
 
@@ -36,6 +36,10 @@ public class MainPresenter {
                 mainView.init(results);
                 timeZone = results.getTimezone();
                 daily= results.getDaily().getData();
+                hourly = results.getHourly().getData();
+
+                if (results.getMinutely()!=null)
+                    minutely = results.getMinutely().getData();
 
             }
 
@@ -56,6 +60,14 @@ public class MainPresenter {
 
     public void dailyWeatherClick() {
         mainView.dailyWeatherClick(timeZone, daily);
+    }
+
+    public void hourlyWeatherClick() {
+        mainView.hourlyWeatherClick(timeZone, hourly);
+    }
+
+    public void minutelyWeatherClick() {
+        mainView.minutelyWeatherClick(timeZone, minutely);
     }
 
     /*@Subscribe

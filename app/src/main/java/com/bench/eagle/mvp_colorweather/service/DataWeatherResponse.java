@@ -4,15 +4,11 @@ package com.bench.eagle.mvp_colorweather.service;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
 
 public class DataWeatherResponse implements Parcelable {
 
-    @SerializedName("summary")
     private String summary;
-    @SerializedName("time")
     private Long time;
-    @SerializedName("precipProbability")
     private Double precipProbability;
 
     protected DataWeatherResponse(Parcel in) {

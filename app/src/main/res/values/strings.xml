@@ -18,4 +18,6 @@
     <string name="error_data_null">"Ha ocurrido un error. Contacte al administrador"</string>
     <string name="error_webservice_body">"Error en la respuesta del servidor"</string>
 
+    <string name="error_no_accepted_permission">Negaste los permisos de acceso a GPS</string>
+
 </resources>

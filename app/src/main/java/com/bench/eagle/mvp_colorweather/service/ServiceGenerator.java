@@ -22,11 +22,11 @@ public class ServiceGenerator {
         // Crear conexión al servicio REST
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(CostantsApi.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.createDataLocation())
                 .build();
         //...
         // Crear conexión a la API
-        weatherClient = retrofit.create(WeatherClient.class);
+        weatherClient = retrofit.createDataLocation(WeatherClient.class);
 
         return weatherClient;
     }*/

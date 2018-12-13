@@ -4,37 +4,36 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bench.eagle.mvp_colorweather.R;
-import com.bench.eagle.mvp_colorweather.adapters.DailyWeatherAdapter;
+import com.bench.eagle.mvp_colorweather.adapters.MinutelyWeatherAdapter;
 import com.bench.eagle.mvp_colorweather.service.DataWeatherResponse;
 import com.bench.eagle.mvp_colorweather.ui.ActivityView;
-import com.bench.eagle.mvp_colorweather.ui.DailyWeatherActivity;
+import com.bench.eagle.mvp_colorweather.ui.MinutelyWeatherActivity;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DailyView extends ActivityView<DailyWeatherActivity> {
+public class MinutelyView extends ActivityView<MinutelyWeatherActivity> {
 
-    @BindView(R.id.dailyRecyclerView)
+    @BindView(R.id.minutelyRecyclerView)
     RecyclerView recyclerView;
 
-    @BindView(R.id.dailyNoDataTextView)
+    @BindView(R.id.minutelyNoDataTextView)
     TextView noDataTextView;
 
-    private DailyWeatherAdapter adapter;
+    private MinutelyWeatherAdapter adapter;
 
-    public DailyView(DailyWeatherActivity activity) {
+    public MinutelyView(MinutelyWeatherActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
     }
 
-    public void setDailyWeatherItems(ArrayList<DataWeatherResponse> daily, String timeZone){
+    public void setDailyWeatherItems(ArrayList<DataWeatherResponse> minutely, String timeZone){
 
-        adapter = new DailyWeatherAdapter(getContext(),daily,timeZone);
+        adapter = new MinutelyWeatherAdapter(getContext(),minutely,timeZone);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -49,6 +48,5 @@ public class DailyView extends ActivityView<DailyWeatherActivity> {
     public void showNoDataText() {
         noDataTextView.setVisibility(View.VISIBLE);
     }
-
 
 }

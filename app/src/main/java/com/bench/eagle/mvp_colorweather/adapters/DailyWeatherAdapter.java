@@ -6,27 +6,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bench.eagle.mvp_colorweather.R;
 import com.bench.eagle.mvp_colorweather.models.Day;
 import com.bench.eagle.mvp_colorweather.service.DataWeatherResponse;
+import com.bench.eagle.mvp_colorweather.utils.Dates;
+import com.jakewharton.rxbinding.view.RxView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import rx.Observable;
+import rx.subjects.PublishSubject;
 
 
 public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapter.DailyViewHolder> {
 
-//    public static final String TAG = DailyWeatherAdapter.class.getSimpleName();
-
-    private ArrayList<DataWeatherResponse> days;
+    ArrayList<DataWeatherResponse> days;
+    private String timeZone;
     private Context context;
 
-    public DailyWeatherAdapter(Context context, ArrayList<DataWeatherResponse> days){
+    public DailyWeatherAdapter(Context context, ArrayList<DataWeatherResponse> days, String timeZone){
 
         this.context = context;
         this.days = days;
-
+        this.timeZone = timeZone;
     }
 
     @Override
@@ -41,19 +49,17 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
     public void onBindViewHolder(DailyViewHolder holder, int position) {
 
         DataWeatherResponse day = days.get(position);
-        holder.onBind(day);
+        holder.onBind(day, timeZone);
     }
-
 
     @Override
     public int getItemCount() {
 
         if (days==null)
-            return 0;
+        return 0;
 
         return days.size();
     }
-
 
     public static class DailyViewHolder extends RecyclerView.ViewHolder{
 
@@ -63,6 +69,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
 
         DailyViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
 
             dayTitle = (TextView) itemView.findViewById(R.id.dailyListTitle);
             dayDescription = (TextView) itemView.findViewById(R.id.dailyListDescription);
@@ -70,85 +77,12 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
 
         }
 
-        public void onBind(final DataWeatherResponse day){
+        public void onBind(final DataWeatherResponse day, final String timeZone){
 
-
-            /*String dayName =  dateFormat.format(jsonWithDayData.getDouble(TIME)*1000);
-            dateFormat.format(jsonWithDayData.getDouble(TIME)*1000
-            dayTitle.setText((day.getDayName()));*/
+            dayTitle.setText(Dates.getDay(timeZone ,day.getTime()));
             dayDescription.setText(day.getSummary());
             dayRainProbability.setText(String.valueOf(day.getPrecipProbability()));
         }
     }
-
-    /*public DailyWeatherAdapter (Context context, ArrayList<Day> days){
-
-        this.context = context;
-        this.days=days;
-
-    }
-
-
-    @Override
-    public int getCount() {
-
-        if (days == null)
-            return 0;
-
-        return days.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-
-        return days.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
-
-        ViewHolder viewHolder;
-
-        Day day = days.get(position);
-
-        if (view == null) {
-
-            view = LayoutInflater.from(context).inflate(R.layout.daily_list_item, viewGroup,false);
-
-            viewHolder = new ViewHolder();
-            viewHolder.dayTitle = (TextView) view.findViewById(R.id.dailyListTitle);
-            viewHolder.dayDescription = (TextView) view.findViewById(R.id.dailyListDescription);
-            viewHolder.dayRainProbability = (TextView) view.findViewById(R.id.dailyListProbability);
-
-            view.setTag(viewHolder);
-        }else{
-
-            viewHolder = (ViewHolder) view.getTag();
-        }
-
-
-
-        viewHolder.dayTitle.setText(day.getDayName());
-        viewHolder.dayDescription.setText(day.getWeatherDescription());
-        viewHolder.dayRainProbability.setText(day.getRainProbability());
-
-        return view;
-    }
-
-    static class ViewHolder{
-
-        TextView dayTitle;
-        TextView dayDescription;
-        TextView dayRainProbability;
-
-
-    }*/
-
-
 
 }

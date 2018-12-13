@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bench.eagle.mvp_colorweather.R;
+import com.bench.eagle.mvp_colorweather.adapters.DailyWeatherAdapter;
 import com.bench.eagle.mvp_colorweather.service.Currently;
 import com.bench.eagle.mvp_colorweather.service.DataWeatherResponse;
 import com.bench.eagle.mvp_colorweather.service.GetWeatherResponse;
@@ -16,6 +17,7 @@ import com.bench.eagle.mvp_colorweather.ui.DailyWeatherActivity;
 import com.bench.eagle.mvp_colorweather.ui.HourlyWeatherActivity;
 import com.bench.eagle.mvp_colorweather.ui.MainActivity;
 import com.bench.eagle.mvp_colorweather.ui.MinutelyWeatherActivity;
+import com.bench.eagle.mvp_colorweather.utils.SharedPreferences;
 
 
 import java.util.ArrayList;
@@ -26,9 +28,6 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by andresdavid on 21/02/17.
- */
 
 public class MainView extends ActivityView<MainActivity> {
 
@@ -85,12 +84,9 @@ public class MainView extends ActivityView<MainActivity> {
     @BindDrawable(R.drawable.wind) Drawable wind;
 
 
-
     public MainView(MainActivity activity) {
         super(activity);
         ButterKnife.bind(this, activity);
-
-
 
     }
 
@@ -105,9 +101,6 @@ public class MainView extends ActivityView<MainActivity> {
         currentTempTextView.setText(String.valueOf(currentWeather.getTemperature()));
         highestTemTextView.setText(String.format("H: %s%%", currentWeather.getHumidity()));
         lowestTemTextView.setText(String.format("P: %s%%", currentWeather.getPrecipProbability()));
-
-        hourlyWeatherClick();
-        minutelyWeatherClick();
 
     }
 
@@ -144,6 +137,12 @@ public class MainView extends ActivityView<MainActivity> {
         }
     }
 
+    public String getDataLocationSharedPreferences(){
+
+        SharedPreferences sharedPreferences = new SharedPreferences(getContext());
+        return sharedPreferences.getDataLocation();
+    }
+
     public void showError() {
         Toast.makeText(getContext(), errorMessge, Toast.LENGTH_SHORT).show();
     }
@@ -152,15 +151,6 @@ public class MainView extends ActivityView<MainActivity> {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-
-    /*public  void include(@NonNull MainActivity newActivity){
-
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.placeholder, newFragment);
-        transaction.commit();
-
-    }*/
 
 
     public void dailyWeatherClick(String timeZone, ArrayList<DataWeatherResponse> daily){
@@ -174,30 +164,26 @@ public class MainView extends ActivityView<MainActivity> {
 
     }
 
-    //@OnClick(R.id.hourlyWeatherTextView)
-    public void hourlyWeatherClick(){
 
-        btnHourlyWeatherActvity.setOnClickListener(v ->{
-            Intent hourlyActivityIntent = new Intent(getContext(),HourlyWeatherActivity.class);
+    public void hourlyWeatherClick(String timeZone, ArrayList<DataWeatherResponse> hourly){
 
-//        hourlyActivityIntent.putParcelableArrayListExtra(HOUR_ARRAY_LIST, hours);
+        Activity activity = getActivity();
+        if (activity== null){
+            return;
+        }
 
-            Objects.requireNonNull(getContext()).startActivity(hourlyActivityIntent);
-        });
+        Objects.requireNonNull(getContext()).startActivity(HourlyWeatherActivity.newInstanceExtra(activity,timeZone, hourly));
 
     }
 
-    //@OnClick(R.id.minutelyWeatherTextView)
-    public void minutelyWeatherClick(){
+    public void minutelyWeatherClick(String timeZone, ArrayList<DataWeatherResponse> minutely){
 
-        btnMinutelyWeatherActvity.setOnClickListener(v ->{
+        Activity activity = getActivity();
+        if (activity== null){
+            return;
+        }
 
-            Intent minutelyActivityIntent = new Intent(getContext(),MinutelyWeatherActivity.class);
-
-//        minutelyActivityIntent.putParcelableArrayListExtra(MINUTE_ARRAY_LIST, minutes);
-
-            Objects.requireNonNull(getContext()).startActivity(minutelyActivityIntent);
-        });
+        Objects.requireNonNull(getContext()).startActivity(MinutelyWeatherActivity.newInstanceExtra(activity,timeZone, minutely));
 
     }
 
